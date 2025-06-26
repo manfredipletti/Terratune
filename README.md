@@ -11,6 +11,29 @@ A live demo is available at:
 
 ---
 
+## Features
+
+- **Explore radio stations on a 3D Cesium map**
+- **Filter stations** by genre, language, and mood
+- **Add stations to favorites**
+- **Create and manage playlists**
+- **Discover popular stations and public playlists**
+- **User authentication** (register/login/logout)
+- **Responsive UI** for desktop and mobile
+
+---
+
+## Technologies Used
+
+- **Flask** (Python) — REST API and backend
+- **SQLAlchemy** — ORM and migrations
+- **CesiumJS** — 3D globe visualization
+- **Vite** — Frontend build tool
+- **JS, HTML, CSS** — Frontend
+- **PostgreSQL** (recommended) or SQLite
+
+---
+
 ## Environments
 
 ### Production
@@ -114,25 +137,4 @@ A live demo is available at:
    - The frontend will be available at `http://localhost:5173/` (default Vite port).
    - The backend API will be available at `http://localhost:5001/api/`.
 
----
 
-## Features
-
-- **Explore radio stations on a 3D Cesium map**
-- **Filter stations** by genre, language, and mood
-- **Add stations to favorites**
-- **Create and manage playlists**
-- **Discover popular stations and public playlists**
-- **User authentication** (register/login/logout)
-- **Responsive UI** for desktop and mobile
-
----
-
-## Technologies Used
-
-- **Flask** (Python) — REST API and backend
-- **SQLAlchemy** — ORM and migrations
-- **CesiumJS** — 3D globe visualization
-- **Vite** — Frontend build tool
-- **JS, HTML, CSS** — Frontend
-- **PostgreSQL** (recommended) or SQLite

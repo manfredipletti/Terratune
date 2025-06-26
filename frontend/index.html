@@ -1,0 +1,336 @@
+<!--
+  Terratune - Main HTML Entry Point
+  ---------------------------------
+  Here the main structure of the terratune app is defined.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+    Head section
+    - Sets up fonts, favicon, and responsive viewport
+    - Loads Cesium CSS for the 3D globe
+    - Loads all main CSS files (main, map, player, sidebar, modal, dark theme)
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terratune - Global Radio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Cesium CSS -->
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <!-- <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components/sidebar.css"> -->
+  <link rel="stylesheet" href="css/index.css">
+  <!-- <link rel="stylesheet" href="css/themes/dark.css">  -->
+</head>
+
+<body>
+  <!--
+  This is the loading screen
+  it is shown while the app is initializing.
+  -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <span class="logo-icon">🌍</span>
+        <h1>Terratune</h1>
+      </div>
+      <div class="loading-spinner"></div>
+      <p>Loading your global radio experience...</p>
+    </div>
+  </div>
+
+  <!--
+    Main Application Container
+    Hidden by default, shown when the app is ready.
+  -->
+  <div id="app" class="app hidden">
+    <div class="app-container">
+      <!--
+        Header
+        ------
+        Contains the logo and login/logout button
+      -->
+      <header class="header">
+          <div class="logo">
+            <h1>🌍 Terratune</h1>
+          </div>
+          <div class="user-menu">
+            <button id="user-menu-btn" class="user-menu-btn">
+              <span class="user-avatar">👤</span>
+              <span class="user-name">Guest</span>
+            </button>
+            <div id="user-menu-dropdown" class="user-menu-dropdown">
+              <a href="#" id="logout-btn">Logout</a>
+            </div>
+          </div>
+      </header>
+
+      <!-- Main content of the app -->
+      <main class="main-layout">
+        <!--
+          Sidebar contains filter, playlists ecc ecc
+        -->
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+            <h2>Filters & Playlists</h2>
+          </div>
+          
+          <div class="sidebar-content">
+            <!-- all the different tabs in the sidebar -->
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-tab="filters">Filters</button>
+              <button class="filter-tab" data-tab="playlists">My Playlists</button>
+              <button class="filter-tab" data-tab="favorites">Favorites</button>
+              <button class="filter-tab" data-tab="popular">Popular</button>
+              <button class="filter-tab" data-tab="popular-playlists">Public Playlists</button>
+            </div>
+            
+            <!--
+              Filters Panel
+            -->
+            <div class="filter-panel active" id="filters-panel">
+              <div class="filter-section">
+                <div class="filter-options" id="genre-filters"></div>
+              </div>
+              
+              <div class="filter-section">
+                <div class="filter-options" id="language-filters"></div>
+              </div>
+              
+              <div class="filter-section">
+                <div class="filter-options" id="mood-filters"></div>
+              </div>
+              </div>
+              
+            <!-- Filter Actions - Always visible at bottom -->
+            <div class="filter-actions" id="filter-actions">
+                <button id="apply-filters" class="btn-primary">Apply Filters</button>
+                <button id="reset-filters" class="btn-secondary">Reset</button>
+            </div>
+            
+            <!--
+              Playlists Panel
+              Shows the user's playlists, allows creation and management.
+            -->
+            <div class="filter-panel" id="playlists-panel">
+              <div class="playlist-actions">
+                <button id="create-playlist" class="btn-primary only-logged" data-tooltip="You have to login to create a playlist">Create Playlist</button>
+              </div>
+              <div class="playlists-list" id="playlists-list">
+                <!-- Playlists loaded here dinamically -->
+              </div>
+            </div>
+            
+            <!--
+              Favorites Panel
+              Shows the user's favorite stations
+            -->
+            <div class="filter-panel" id="favorites-panel">
+              <div class="favorites-list" id="favorites-list-container">
+                <!-- Favorites loaded here dinamically -->
+              </div>
+            </div>
+
+            <!-- Popular Panel -->
+            <div class="filter-panel" id="popular-panel">
+              <!-- <div class="popular-list" id="popular-list-container"> -->
+                <!-- Popular stations loaded here dinamically -->
+              <!-- </div> -->
+            </div>
+
+            <!-- Popular Playlists Panel -->
+            <div class="filter-panel" id="popular-playlists-panel">
+              <!-- <div class="popular-playlists-list" id="popular-playlists-list-container"> -->
+                <!-- Popular playlists loaded here dinamically -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </aside>
+
+        <!--
+          Main Content
+          Contains the Cesium map and the audio player.
+        -->
+        <div class="main-content">
+          <!--
+            Cesium Map Container
+            -------------------
+            The globe where stations are shown as pins.
+          -->
+          <div id="cesium-container" class="cesium-container"></div>
+
+          <!--
+            Audio Player
+          -->
+          <footer class="player-footer">
+            <div id="player-container">
+              <div class="player-info">
+                <div class="station-cover">
+                  <span id="station-cover-icon">🎵</span>
+                </div>
+                <div class="station-details">
+                  <h4 id="now-playing-title">Select a station</h4>
+                  <p id="now-playing-location">No station selected</p>
+                </div>
+                <!--
+                  Favorite button
+                -->
+                <button id="player-favorite-btn" class="control-btn action-btn hidden only-logged" title="Add to Favorites" data-tooltip="You have to login to add favorites">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z" fill="none" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
+                <button id="info-btn" class="control-btn hidden" title="Show station info">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+              
+              <div class="player-controls">
+                <!--
+                  Player controls
+                -->
+                <button id="play-pause-btn" class="play-pause-btn" title="Play/Pause">
+                  <svg id="play-icon" viewBox="0 0 24 24" width="32" height="32">
+                    <path fill="currentColor" d="M8 5v14l11-7z"/>
+                  </svg>
+                  <svg id="pause-icon" viewBox="0 0 24 24" width="32" height="32" style="display: none;">
+                    <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div class="player-volume">
+                <div class="volume-control">
+                  <button id="mute-btn" class="action-btn" title="Mute">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                  </button>
+                  <input type="range" id="volume-slider" min="0" max="100" value="100" class="volume-slider">
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </main>
+
+      <!--
+        Info Panel
+        Shows details about the selected station
+      -->
+      <div id="info-panel">
+        <div id="info-header">
+          <h3>Station Info</h3>
+          <button id="info-close">&times;</button>
+        </div>
+        <div id="info-content"></div>
+      </div>
+      
+      <!--
+        Notification Container
+        ---------------------
+        Toast notifications for user feedback.
+      -->
+      <div id="notification-container"></div>
+    </div>
+  </div>
+
+  <!--
+    Modals
+    ------
+    All modal dialogs (login, register, create playlist, add to playlist).
+    Controlled by their respective controllers/views.
+  -->
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Login</h2>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <button type="submit" class="btn-primary">Login</button>
+        </form>
+        <p class="modal-footer">
+          Don't have an account? <a href="#" id="show-register">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="register-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Register</h2>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="register-form">
+          <div class="form-group">
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required>
+          </div>
+          <button type="submit" class="btn-primary">Register</button>
+        </form>
+        <p class="modal-footer">
+          Already have an account? <a href="#" id="show-login">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="create-playlist-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Create Playlist</h2>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="create-playlist-form">
+          <label for="playlist-name">Name</label>
+          <input type="text" id="playlist-name" name="playlist-name" required maxlength="50">
+          <label for="playlist-description">Description</label>
+          <textarea id="playlist-description" name="playlist-description" maxlength="200"></textarea>
+          <label><input type="checkbox" id="playlist-public" checked> Public</label>
+          <div class="modal-footer">
+            <button type="submit" class="btn-primary">Create</button>
+            <button type="button" class="modal-close btn-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    Scripts
+    -------
+    Loads Cesium and the main JS entry point (main.js).
+  -->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.111/Build/Cesium/Cesium.js"></script>
+  <script src="/config.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+.player-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 70px; 
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+#player-container {
+    /* TODO: try height 80px */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%; 
+    padding: 1rem 2rem;
+    gap: 20px;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.station-cover {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-elevated));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.station-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.station-details h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.station-details p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 50%;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.control-btn:hover {
+    background-color: var(--bg-elevated);
+    border-color: var(--accent-primary);
+    transform: scale(1.05);
+}
+
+.play-pause-btn {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border: none;
+    border-radius: 50%;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.play-pause-btn .spinner {
+    animation: rotate 2s linear infinite;
+}
+
+.play-pause-btn .path {
+    stroke: var(--primary-color);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+.player-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+.action-btn.is-favorite svg path {
+    fill: var(--accent-error);
+    stroke: var(--accent-error);
+}
+
+.action-btn.active {
+    color: var(--accent-warning);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.volume-slider {
+    width: 80px;
+    height: 4px;
+    background-color: var(--bg-tertiary);
+    border-radius: 2px;
+    outline: none;
+    accent-color: var(--accent-primary);
+}
+
+#info-btn {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 5px;
+}
+
+#info-btn:hover {
+    color: var(--primary-color);
+}
+
+#info-btn.hidden {
+    display: none;
+}

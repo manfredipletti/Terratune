@@ -1,0 +1,51 @@
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    animation: fadeInUp 0.8s ease;
+}
+
+.loading-logo {
+    margin-bottom: 32px;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    /* color: var(--primary-color);
+    vertical-align: middle; */
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-primary);
+    border-top: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.loading-content p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}

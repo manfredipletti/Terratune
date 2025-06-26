@@ -27,7 +27,7 @@ A live demo is available at:
 
 ---
 
-## 🚀 Production Setup
+## Production Setup
 
 1. **Set Environment Variables**
 
@@ -79,7 +79,7 @@ A live demo is available at:
 
 ---
 
-## 🛠️ Debug/Development Setup
+## Debug/Development Setup
 
 1. **Set up the Database**
    - Create a `.env` file in the root with your local database URL:
@@ -116,7 +116,7 @@ A live demo is available at:
 
 ---
 
-## ✨ Features
+## Features
 
 - **Explore radio stations on a 3D Cesium map**
 - **Filter stations** by genre, language, and mood
@@ -128,7 +128,7 @@ A live demo is available at:
 
 ---
 
-## 🧰 Technologies Used
+## Technologies Used
 
 - **Flask** (Python) — REST API and backend
 - **SQLAlchemy** — ORM and migrations

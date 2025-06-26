@@ -107,7 +107,7 @@ A live demo is available at:
 1. **Set up the Database**
    - Create a `.env` file in the root with your local database URL:
      ```
-     DATABASE_URL=sqlite:///your_local_db.sqlite3
+     DATABASE_URL=sqlite:///your_local_db
      ```
    - Other environment variables are not required in debug mode.
 

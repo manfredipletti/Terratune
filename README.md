@@ -91,7 +91,7 @@ A live demo is available at:
 
 5. **Populate the Database (optional, for demo data)**
    ```sh
-   python scripts/poopulate_db.py
+   python -m scripts/poopulate_db
    ```
 
 6. **Run the Application**
@@ -123,13 +123,17 @@ A live demo is available at:
    cd frontend
    npm install
    ```
+4. **Populate the Database (optional, for demo data)**
+   ```sh
+   python -m scripts/poopulate_db
+   ```
 
-4. **Run the Backend**
+5. **Run the Backend**
    ```sh
    python run.py
    ```
 
-5. **Run the Frontend (Vite)**
+6. **Run the Frontend (Vite)**
    ```sh
    cd frontend
    npm start
